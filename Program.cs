@@ -86,15 +86,8 @@ namespace Week1DotNet
             sellingAmount = decimal.Parse(Console.ReadLine());
 
 
-            if(ValidateInputs(invoiceNum,customerName,itemName,quantity,purchaseAmount, sellingAmount))
+            if (ValidateInputs(invoiceNum, customerName, itemName, quantity, purchaseAmount, sellingAmount))
             {
-                newTransaction.InvoiceNo = invoiceNum;
-                newTransaction.CustomerName = customerName;
-                newTransaction.ItemName = itemName;
-                newTransaction.Quantity = quantity;
-                newTransaction.PurchaseAmount = purchaseAmount;
-                newTransaction.SellingAmount = sellingAmount;
-
                 LastTransaction.InvoiceNo = invoiceNum;
                 LastTransaction.CustomerName = customerName;
                 LastTransaction.ItemName = itemName;
@@ -103,9 +96,18 @@ namespace Week1DotNet
                 LastTransaction.SellingAmount = sellingAmount;
                 LastTransaction.Calculate();
                 HasLastTransaction = true;
+
+
+                Console.WriteLine("Transaction Saved: ");
+                Console.WriteLine("Status: " + LastTransaction.ProfitOrLossStatus);
+                Console.WriteLine("Profit/Loss Amount: " + LastTransaction.ProfitOrLossAmount);
+                Console.WriteLine($"Profit Margin (%) {Math.Round(LastTransaction.ProfitMarginPercent, 2)}");
+
             }
-
-
+            else
+            {
+                Console.WriteLine("Invalid Inputs!");
+            }
 
         }
 
