@@ -123,6 +123,8 @@ namespace Week1DotNet
 
         public static void ViewLastTransaction()
         {
+
+            Console.WriteLine("LAST TRANSACTION");
             Console.WriteLine("InvoiceNo: " + LastTransaction.InvoiceNo);
             Console.WriteLine("Customer: " + LastTransaction.CustomerName);
             Console.WriteLine("Item: " + LastTransaction.ItemName);

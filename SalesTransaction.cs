@@ -4,6 +4,14 @@ using System.Text;
 
 namespace Week1DotNet
 {
+    /// <summary>
+    /// Represents a sales transaction, including details about the customer, item, amounts, and calculated profit or
+    /// loss information.
+    /// </summary>
+    /// <remarks>Use this class to store and manage information related to a single sales transaction, such as
+    /// invoice number, customer name, item details, purchase and selling amounts, and the resulting profit or loss. The
+    /// class provides properties for both input data and calculated results, enabling tracking and analysis of
+    /// individual sales.</remarks>
     public class SalesTransaction
     {
 
