@@ -3,18 +3,22 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Week1DotNet
 {
+    // Main program for the console app
     public class Program
     {
-        
+        // Stores the most recent transaction
         private static SalesTransaction LastTransaction = new();
+        // Tracks if a transaction has been saved
         private static bool HasLastTransaction = false;
 
+        // App entry point
         public static void Main(string[] args)
         {
             string User_Input;
 
             do
             {
+                // Show menu
                 Console.WriteLine("================== QuickMart Traders ==================");
                 Console.WriteLine("1. Create New Transaction (Enter Purchase & Selling Details)");
                 Console.WriteLine("2. View Last Transaction");
@@ -27,11 +31,9 @@ namespace Week1DotNet
             }
             while (User_Input != "4");
             if (User_Input == "4") Console.WriteLine("Thank You. Application closed normally.");
-
-
-            
         }
 
+        // Call the right method based on user choice
         private static void SwitchCaseInput(string user_Input)
         {
             switch (user_Input)
@@ -43,15 +45,16 @@ namespace Week1DotNet
                     ViewLastTransaction();
                     break;
                 case "3":
+                    // Recompute using current values and show
                     LastTransaction.Calculate();
                     ViewLastTransaction();
                     break;
                 default:
                     break;
-
             }
         }
 
+        // Check if user entered a valid menu option
         public static void CheckUser_Input(string input)
         {
             if (input != "1" && input != "2" && input != "3" && input != "4")
@@ -60,6 +63,7 @@ namespace Week1DotNet
             }
         }
 
+        // Read transaction details from user and save
         public static void NewTransaction()
         {
             SalesTransaction newTransaction = new SalesTransaction();
@@ -70,7 +74,6 @@ namespace Week1DotNet
             int quantity;
             decimal purchaseAmount;
             decimal sellingAmount;
-
 
             Console.WriteLine("Enter Invoice No: ");
             invoiceNum = Console.ReadLine();
@@ -85,7 +88,7 @@ namespace Week1DotNet
             Console.WriteLine("Enter Selling Amount (total): ");
             sellingAmount = decimal.Parse(Console.ReadLine());
 
-
+            // Validate and save if ok
             if (ValidateInputs(invoiceNum, customerName, itemName, quantity, purchaseAmount, sellingAmount))
             {
                 LastTransaction.InvoiceNo = invoiceNum;
@@ -97,33 +100,31 @@ namespace Week1DotNet
                 LastTransaction.Calculate();
                 HasLastTransaction = true;
 
-
+                // Show saved data
                 Console.WriteLine("Transaction Saved: ");
                 Console.WriteLine("Status: " + LastTransaction.ProfitOrLossStatus);
                 Console.WriteLine("Profit/Loss Amount: " + LastTransaction.ProfitOrLossAmount);
                 Console.WriteLine($"Profit Margin (%) {Math.Round(LastTransaction.ProfitMarginPercent, 2)}");
-
             }
             else
             {
                 Console.WriteLine("Invalid Inputs!");
             }
-
         }
 
-
+        // Simple input checks
         public static bool ValidateInputs(string invoiceNum, string c_Name, string itemName, int quat, decimal purchaseamt, decimal sellingAmt)
         {
-            if(invoiceNum != string.Empty && quat > 0 && purchaseamt > 0 && sellingAmt > 0)
+            if (invoiceNum != string.Empty && quat > 0 && purchaseamt > 0 && sellingAmt > 0)
             {
                 return true;
             }
             return false;
         }
 
+        // Print details of the last saved transaction
         public static void ViewLastTransaction()
         {
-
             Console.WriteLine("LAST TRANSACTION");
             Console.WriteLine("InvoiceNo: " + LastTransaction.InvoiceNo);
             Console.WriteLine("Customer: " + LastTransaction.CustomerName);

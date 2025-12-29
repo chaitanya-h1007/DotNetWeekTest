@@ -4,10 +4,15 @@ using System.Text;
 
 namespace Week1DotNet
 {
+    // Simple console app to create and view patient bills
     public class CodeRunner
     {
-        private static Bill LastBill = new();
+        // Store the last bill
+        private static Bill LastBill = new(); 
+        // Flag to check if a bill was created
         private static bool HasLastBill = false;
+
+        // App entry point
         public static void Main(string[] args)
 
         {
@@ -15,6 +20,7 @@ namespace Week1DotNet
 
             do
             {
+                // Show menu options
                 Console.WriteLine("================== MediSure Clinic Billing ==================");
                 Console.WriteLine("1. Create New Bill (Enter Patient Details)");
                 Console.WriteLine("2. View Last Bill");
@@ -29,11 +35,8 @@ namespace Week1DotNet
             if (User_Input == "4") Console.WriteLine("Thank You. Application closed normally.");
 
         }
-        /// <summary>
-        /// Processes the specified user input and performs the corresponding action based on predefined options.
-        /// </summary>
-        /// <remarks>If the input does not match any recognized option, no action is performed.</remarks>
-        /// <param name="user_Input">The user input string that determines which action to execute. Expected values are "1", "2", or "3".</param>
+
+        // Run action based on user choice
         private static void SwitchCaseInput(string user_Input)
         {
             switch (user_Input)
@@ -45,6 +48,7 @@ namespace Week1DotNet
                     ViewLastBill();
                     break;
                 case "3":
+                    // Delete last bill
                     LastBill = null;
                     break;
                 default:
@@ -52,12 +56,8 @@ namespace Week1DotNet
 
             }
         }
-        /// <summary>
-        /// Displays the details of the most recently created bill in the console output.
-        /// </summary>
-        /// <remarks>If no previous bill exists, a message indicating that no bill was found is displayed.
-        /// This method is intended for use in console applications to review the last bill's summary
-        /// information.</remarks>
+
+        // Print the last saved bill or a message if none exists
         private static void ViewLastBill()
         {
             if(HasLastBill != false)
@@ -76,10 +76,8 @@ namespace Week1DotNet
                 Console.WriteLine("Create a new bill. NO BILL Found");
             }
         }
-        /// <summary>
-        /// Validates the specified user input and displays a message if the input is not a recognized option.
-        /// </summary>
-        /// <param name="input">The user input to validate. Expected values are "1", "2", "3", or "4".</param>
+
+        // Check menu input is valid
         public static void CheckUser_Input(string input)
         {
             if (input != "1" && input != "2" && input != "3" && input != "4")
@@ -87,13 +85,8 @@ namespace Week1DotNet
                 Console.WriteLine("!!Please Enter the Valid Option.!!");
             }
         }
-        /// <summary>
-        /// Prompts the user to enter billing information, validates the input, and generates a new bill with the
-        /// provided details.
-        /// </summary>
-        /// <remarks>If the input is valid, the method calculates the bill amounts and displays the gross
-        /// amount, discount, and final payable amount to the console. If the input is invalid, an error message is
-        /// displayed. The generated bill is stored as the last bill for subsequent access.</remarks>
+
+        // Read bill details from user and save as last bill
         public static void NewBill()
         {
             Bill newBill = new Bill();
@@ -145,19 +138,8 @@ namespace Week1DotNet
             }
 
         }
-        /// <summary>
-        /// Validates the input values for a billing operation, ensuring that all required fields are present and meet
-        /// expected constraints.
-        /// </summary>
-        /// <remarks>If any input is invalid, an error message is written to the console describing the
-        /// issue.</remarks>
-        /// <param name="billId">The unique identifier for the bill. Cannot be null, empty, or consist only of white-space characters.</param>
-        /// <param name="patientName">The name of the patient. Cannot be null, empty, or consist only of white-space characters.</param>
-        /// <param name="hasInsurance">A character indicating whether the patient has insurance. Must be 'Y' or 'N' (case-insensitive).</param>
-        /// <param name="consultationFee">The consultation fee amount. Must be zero or a positive integer.</param>
-        /// <param name="labCharges">The laboratory charges amount. Must be zero or a positive integer.</param>
-        /// <param name="mediceneCharges">The medicine charges amount. Must be zero or a positive integer.</param>
-        /// <returns>true if all input values are valid; otherwise, false.</returns>
+
+        // Validate inputs for the bill
         private static bool ValidateInputs(string billId, string patientName, char hasInsurance, int consultationFee, int labCharges, int mediceneCharges)
         {
             if (string.IsNullOrWhiteSpace(billId))

@@ -5,37 +5,40 @@ using System.Text;
 namespace Week1DotNet
 {
     /// <summary>
-    /// Represents a billing record for a patient, including charges, discounts, and final amount calculations.
+    /// Simple bill record for a patient with charges and discount.
     /// </summary>
-    /// <remarks>The Bill class encapsulates information related to a patient's billing, such as consultation
-    /// fees, laboratory charges, and medication charges. It also tracks whether the patient has insurance, which
-    /// affects the discount applied to the total charges. Use the Calculate method to update the gross amount,
-    /// discount, and final amount based on the current property values.</remarks>
     public class Bill
     {
+        // Unique bill identifier
         public string BillId { get; set; }
+        // Name of the patient
         public string PatientName { get; set; }
+        // 'Y' if patient has insurance, otherwise 'N'
         public char HasInsurence { get; set; }
+        // Consultation fee amount
         public int ConsultationFees { get; set; }
+        // Laboratory charges
         public int LabCharges { get; set; }
+        // Medicine charges
         public int Medicenecharges { get; set; }
 
+        // Total before discount
         public decimal GrossAmount { get; set; }
+        // Discount amount applied (if any)
         public decimal DiscountAmount { get; set; }
+        // Amount to pay after discount
         public decimal FinalAmount { get; set; }
 
         /// <summary>
-        /// Calculates the gross amount, discount, and final amount for the current consultation based on fees, charges,
-        /// and insurance status.
+        /// Calculate gross, discount, and final amounts.
         /// </summary>
-        /// <remarks>This method updates the GrossAmount, DiscountAmount, and FinalAmount properties using
-        /// the current values of ConsultationFees, LabCharges, Medicenecharges, and HasInsurence. If insurance is
-        /// indicated, a 10% discount is applied to the gross amount.</remarks>
         public void Calculate()
 
         {
-
+            // Sum all charges to get gross amount
             GrossAmount = ConsultationFees + LabCharges + Medicenecharges;
+
+            // Apply 10% discount if patient has insurance
             if (HasInsurence == 'Y')
             {
                 DiscountAmount = GrossAmount * 0.10m;
@@ -44,6 +47,8 @@ namespace Week1DotNet
             {
                 DiscountAmount = 0;
             }
+
+            // Final amount after discount
             FinalAmount = GrossAmount - DiscountAmount;
 
         }
